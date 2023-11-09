@@ -16,8 +16,7 @@ public class CoordinateValidationUtilException {
     Coordinate coordinate = new Coordinate(latitude, longitude);
 
     if (!CoordinateUtil.isCoordinateValid(coordinate)) {
-      throw new InvalidCoordinateException("invalid coordinate") {
-      };
+      throw new InvalidCoordinateException();
     }
   }
 }
