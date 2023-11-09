@@ -1,6 +1,7 @@
 package com.betrybe.museumfinder.service;
 
 import com.betrybe.museumfinder.database.MuseumFakeDatabase;
+import com.betrybe.museumfinder.exception.MuseumNotFoundException;
 import com.betrybe.museumfinder.model.Coordinate;
 import com.betrybe.museumfinder.model.Museum;
 import com.betrybe.museumfinder.util.CoordinateValidationUtilException;
@@ -29,7 +30,13 @@ public class MuseumService implements MuseumServiceInterface {
 
   @Override
   public Museum getClosestMuseum(Coordinate coordinate, Double maxDistance) {
-    throw new UnsupportedOperationException("Unimplemented method 'getClosestMuseum'");
+    double latitude = coordinate.latitude();
+    double longitude = coordinate.longitude();
+      
+    CoordinateValidationUtilException.validateCoordinate(latitude, longitude);
+
+    return museumFakeDatabase.getClosestMuseum(coordinate, maxDistance)
+        .orElseThrow(() -> new MuseumNotFoundException());
   }
 
   @Override
