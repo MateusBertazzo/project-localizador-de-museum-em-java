@@ -41,6 +41,7 @@ public class MuseumService implements MuseumServiceInterface {
 
   @Override
   public Museum getMuseum(Long id) {
-    throw new UnsupportedOperationException("Unimplemented method 'getMuseum'");
+    return museumFakeDatabase.getMuseum(id)
+        .orElseThrow(() -> new MuseumNotFoundException());
   }
 }

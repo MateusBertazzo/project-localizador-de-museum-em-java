@@ -1,5 +1,6 @@
 package com.betrybe.museumfinder.controller;
 
+import com.betrybe.museumfinder.dto.MuseumCreationDto;
 import com.betrybe.museumfinder.dto.MuseumDto;
 import com.betrybe.museumfinder.model.Coordinate;
 import com.betrybe.museumfinder.model.Museum;
@@ -33,8 +34,8 @@ public class MuseumController {
    */
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Museum createMuseum(@RequestBody MuseumDto museumDto) {
-    Museum museum = ModelDtoConverter.dtoToModel(museumDto);
+  public Museum createMuseum(@RequestBody MuseumCreationDto museumDtoCreation) {
+    Museum museum = ModelDtoConverter.dtoToModel(museumDtoCreation);
 
     return museumService.createMuseum(museum);
   }
@@ -50,6 +51,17 @@ public class MuseumController {
       @RequestParam("max_dist_km") double maxDistKm) {
     Coordinate coordinate = new Coordinate(lat, lng);
     Museum museum = museumService.getClosestMuseum(coordinate, maxDistKm);
+
+    MuseumDto museumConverter = ModelDtoConverter.modelToDto(museum);
+
+    return museumConverter;
+  }
+
+
+  @GetMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public MuseumDto getMuseum(@RequestParam Long id) {
+    Museum museum = museumService.getMuseum(id);
 
     MuseumDto museumConverter = ModelDtoConverter.modelToDto(museum);
 
