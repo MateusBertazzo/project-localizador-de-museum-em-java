@@ -58,6 +58,9 @@ public class MuseumController {
   }
 
 
+  /**
+   * Route to get a museum by id.
+   */
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public MuseumDto getMuseum(@RequestParam Long id) {
